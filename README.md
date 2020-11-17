@@ -1,5 +1,32 @@
 # Readme for stuff
 
+## Securing Pi
+
+[Resource used](https://www.raspberrypi.org/documentation/configuration/security.md)
+
+enabling firewall 
+
+- `sudo apt install ufw`
+- `ufw enable`
+- `ufw allow <port>`
+- `ufw deny <port>`
+
+ban users for login attempts
+
+- sudo apt install fail2ban
+- creates folder /etc/fail2ban
+- sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
+- sudo vim /etc/fail2ban/jail.local
+- ```[ssh]
+enabled  = true
+port     = ssh
+filter   = sshd
+logpath  = /var/log/auth.log
+maxretry = 6
+bantime  = -1
+```
+
+
 ## Backing up whole raspberry pi onto USB drive
 
 [Resource used](https://www.megaleecher.net/best_raspberry_pi_hot_backup_shell_script)

@@ -1,5 +1,17 @@
 # Readme for stuff
 
+## Backing up whole raspberry pi onto USB drive
+
+[Resource used](https://www.megaleecher.net/best_raspberry_pi_hot_backup_shell_script)
+
+- See the [backup script](./backup-script.sh) in this repository
+- Check if the directory and the subdirectory are correct
+
+## Restoring a backed up image to SD Card
+
+- Install [Etcher](https://www.balena.io/etcher/) if not done so already
+- Use the tool to flash backup on SD card
+
 ## Mounting the USB drive with backups
 
 [Resource used](https://www.raspberrypi-spy.co.uk/2014/05/how-to-mount-a-usb-flash-disk-on-the-raspberry-pi/)

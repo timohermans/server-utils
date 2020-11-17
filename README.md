@@ -7,6 +7,13 @@
 - See the [backup script](./backup-script.sh) in this repository
 - Check if the directory and the subdirectory are correct
 
+## Back up every week
+
+[Cronjob generator](https://crontab.guru/#0_2_*_*_1)
+
+- `sudo crontab -e`
+- every week on Monday 02:00 -> `0 2 * * 1 <path-to-repo>/backup-script.sh`
+
 ## Restoring a backed up image to SD Card
 
 - Install [Etcher](https://www.balena.io/etcher/) if not done so already

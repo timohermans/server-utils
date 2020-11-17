@@ -68,7 +68,8 @@ if [ $RESULT = 0 ];
        # rm -f $DIR/backup_*.tar.gz
        rm -f $DIR/backup_*.img
        mv $OFILE $OFILEFINAL
-       echo "Backup is being tarred. Please wait..."
+       echo "Tarring is not enabled, due to pi performance"
+       # echo "Backup is being tarred. Please wait..."
        #tar zcf $OFILEFINAL.tar.gz $OFILEFINAL
        # rm -rf $OFILEFINAL
        echo "RaspberryPI backup process completed! FILE: $OFILEFINAL"

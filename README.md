@@ -1,5 +1,15 @@
 # Readme for stuff
 
+## OpenVPN
+
+[Resource used](https://raspberrytips.nl/pivpn-de-eenvoudige-manier-om-openvpn-te-installeren/)
+
+- sudo -i
+- curl -L http://install.pivpn.io | bash
+- port 51820
+
+
+
 ## Securing Pi
 
 [Resource used](https://www.raspberrypi.org/documentation/configuration/security.md)
@@ -17,7 +27,9 @@ ban users for login attempts
 - creates folder /etc/fail2ban
 - sudo cp /etc/fail2ban/jail.conf /etc/fail2ban/jail.local
 - sudo vim /etc/fail2ban/jail.local
-- ```[ssh]
+
+```bash
+[ssh]
 enabled  = true
 port     = ssh
 filter   = sshd
@@ -25,7 +37,6 @@ logpath  = /var/log/auth.log
 maxretry = 6
 bantime  = -1
 ```
-
 
 ## Backing up whole raspberry pi onto USB drive
 

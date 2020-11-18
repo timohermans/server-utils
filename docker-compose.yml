@@ -1,11 +1,21 @@
 version: "3.8"
 services: 
+  proxy:
+    networks:
+      dev:
+        ipv4_address: 172.44.0.5
+    build:
+      context: ./web-proxy
+    depends_on: 
+      - db-admin
+    ports:
+      - "80:80"
   db:
     networks:
       dev:
-        ipv4_address: 172.19.0.2
+        ipv4_address: 172.44.0.2
     image: postgres:latest
-    container_name: postgres-db-local
+    container_name: postgres-db
     ports: 
       - "5432:5432"
     volumes:
@@ -17,10 +27,10 @@ services:
       - POSTGRES_DB=keycloak
   
   db-admin:
-    container_name: pgadmin-local
+    container_name: pgadmin
     networks: 
       dev:
-        ipv4_address: 172.19.0.3
+        ipv4_address: 172.44.0.3
     image: dpage/pgadmin4
     volumes:
       - pgadmin:/var/lib/pgadmin
@@ -30,17 +40,17 @@ services:
     environment:
       - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
       - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
-      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
-      - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
+      # - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
+      # - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
 
   keycloak:
-    container_name: keycloak-local
+    container_name: keycloak
     image: jboss/keycloak
     depends_on: 
       - db
     networks:
       dev:
-        ipv4_address: 172.19.0.4
+        ipv4_address: 172.44.0.4
     ports:
       - "7777:8080"
     env_file: .env
@@ -62,4 +72,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 172.19.0.0/16
+        - subnet: 172.44.0.0/16

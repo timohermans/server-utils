@@ -1,0 +1,65 @@
+version: "3.8"
+services: 
+  db:
+    networks:
+      dev:
+        ipv4_address: 172.19.0.2
+    image: postgres:latest
+    container_name: postgres-db-local
+    ports: 
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    env_file: .env
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=keycloak
+  
+  db-admin:
+    container_name: pgadmin-local
+    networks: 
+      dev:
+        ipv4_address: 172.19.0.3
+    image: dpage/pgadmin4
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports: 
+      - "2345:80"
+    env_file: .env
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+      - PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION=True
+      - PGADMIN_CONFIG_CONSOLE_LOG_LEVEL=10
+
+  keycloak:
+    container_name: keycloak-local
+    image: jboss/keycloak
+    depends_on: 
+      - db
+    networks:
+      dev:
+        ipv4_address: 172.19.0.4
+    ports:
+      - "7777:8080"
+    env_file: .env
+    environment:
+      - KEYCLOAK_USER=${KEYCLOAK_USER}
+      - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
+      - DB_VENDOR=postgres
+      - DB_ADDR=172.19.0.2:5432
+      - DB_DATABASE=keycloak
+      - DB_USER=${POSTGRES_USER}
+      - DB_PASSWORD=${POSTGRES_PASSWORD} 
+
+volumes:
+  postgres:
+  pgadmin:
+
+networks:
+  dev:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.19.0.0/16

@@ -8,6 +8,7 @@ services:
       context: ./web-proxy
     depends_on: 
       - db-admin
+      - keycloak
     ports:
       - "80:80"
   db:
@@ -62,6 +63,7 @@ services:
       - DB_DATABASE=keycloak
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD} 
+      - PROXY_ADDRESS_FORWARDING=true
 
 volumes:
   postgres:

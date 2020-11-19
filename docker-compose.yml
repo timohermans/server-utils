@@ -58,7 +58,7 @@ services:
       - KEYCLOAK_USER=${KEYCLOAK_USER}
       - KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}
       - DB_VENDOR=postgres
-      - DB_ADDR=172.19.0.2:5432
+      - DB_ADDR=172.44.0.2:5432
       - DB_DATABASE=keycloak
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD} 

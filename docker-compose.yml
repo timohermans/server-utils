@@ -11,6 +11,21 @@ services:
       - keycloak
     ports:
       - "80:80"
+
+  student-progress:
+    container_name: studentprogress
+    depends_on:
+      - keycloak
+    build:
+      context: ../StudentProgress
+      dockerfile: StudentProgress.Web/Dockerfile
+    ports:
+      - "1234:80"
+    networks:
+      dev:
+        ipv4_address: 172.44.0.6
+    env_file: .env
+
   db:
     networks:
       dev:

@@ -26,4 +26,13 @@ do
 done
 
 echo "Going to put files to cloud"
-rclone copy . drive:Backups/home-server-1/postgres
+rclone copy /backups drive:Backups/home-server-1/postgres
+
+echo "Done uploading!"
+
+rm -rf $DIR
+
+echo "Removed backup dir"
+
+echo "Done backing up"
+exit 0

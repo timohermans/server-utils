@@ -2,6 +2,18 @@
 
 At the time of this commit, I've changed to ubuntu server 20.04. Most of the stuff still applies I guess
 
+## Getting output from container to host (the easy way)
+
+So just use `docker exec` for doing this stuff. See the example for a database dump:
+
+```bash
+docker exec postgres-db pg_dump > backup.bak
+```
+
+The above code snippet will actually put the output in `backup.bak` on the **host** machine.
+
+You can do this for everything, from backing up to just `cat`ting something
+
 ## Set Static IP (or fix ethernet controller)
 
 [Resource used](https://www.osradar.com/set-a-static-ip-address-ubuntu-20-04/)

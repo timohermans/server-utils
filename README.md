@@ -1,5 +1,30 @@
 # Readme for stuff
 
+At the time of this commit, I've changed to ubuntu server 20.04. Most of the stuff still applies I guess
+
+## Set Static IP (or fix ethernet controller)
+
+[Resource used](https://www.osradar.com/set-a-static-ip-address-ubuntu-20-04/)
+
+- cd /etc/netplan
+- (only once) sudo cp 00-installer-config.yaml 00-installer-config.yaml.bak
+- change accordingly
+
+```yaml
+network:
+  ethernets:
+    eno1:
+      dhcp4: no
+      addresses:s
+        - 192.168.178.101/16
+      gateway4: 192.168.178.1
+      nameservers:
+        addresses: [8.8.8.8, 1.1.1.1]
+  version: 2
+```
+
+- sudo netplan apply
+
 ## OpenVPN
 
 [Resource used](https://raspberrytips.nl/pivpn-de-eenvoudige-manier-om-openvpn-te-installeren/)
@@ -68,3 +93,7 @@ bantime  = -1
 5. sudo mount /dev/sda1 /media/usb -o uid=pi,gid=pi (already done, no need to do this again)
 6. to auto mount on reboot -> sudo vim /etc/fstab -> UUID=<uuid from 2>/media/usb ntfs-3g auto,nofail,noatime,users,rw,uid=pi,gid=pi 0 0
 6b. note that ntfs-3g for ntfs file system, vfat for fat32
+
+## Change shell of new user to bash
+
+chsh -s /bin/bash

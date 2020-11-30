@@ -9,7 +9,7 @@ if [ ! -d "$DIR" ];
        mkdir $DIR
 fi
 
-for db in "${$DATABASES[@]}"
+for db in "${DATABASES[@]}"
 do
   echo "Backing up $db"
   DBDIR="$DIR/$db"

@@ -28,11 +28,14 @@ done
 echo "Going to put files to cloud"
 rclone copy /backups drive:Backups/home-server-1/postgres
 
-echo "Done uploading!"
-
-rm -rf $DIR
-
-echo "Removed backup dir"
+if [ $RESULT = 0 ];
+  then  
+    echo "Done backing up to cloud"
+    rm -rf $DIR
+    echo "Removed backup dir"
+  else
+    echo "Backing up to cloud failed. Not removing backup folder"
+fi
 
 echo "Done backing up"
 exit 0

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DIR=/backups
-DATABASES=(student-progress)
+DATABASES=(student-progress keycloak)
 
 if [ ! -d "$DIR" ];
    then

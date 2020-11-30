@@ -1,0 +1,29 @@
+#!/bin/bash
+
+DIR=/backups
+DATABASES=(student-progress)
+
+if [ ! -d "$DIR" ];
+   then
+       echo "Backup directory $DIR doesn't exist, creating it now!"
+       mkdir $DIR
+fi
+
+for db in "${$DATABASES[@]}"
+do
+  echo "Backing up $db"
+  DBDIR="$DIR/$db"
+
+  if [ ! -d "$DIR" ];
+    then
+      echo "Backup db directory $DBDIR doesn't exist, creating it now!"
+      mkdir $DBDIR
+  fi
+
+  cd DBDIR
+  docker exec postgres-db pg_dump $db -U timodb -W > $(date +%Y%m%d_%H%M%S)-$db.bak
+  echo "Done backup up $db"
+done
+
+echo "Going to put files to cloud"
+rclone copy . drive:Backups/home-server-1/postgres

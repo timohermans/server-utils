@@ -14,13 +14,13 @@ do
   echo "Backing up $db"
   DBDIR="$DIR/$db"
 
-  if [ ! -d "$DIR" ];
+  if [ ! -d "$DBDIR" ];
     then
       echo "Backup db directory $DBDIR doesn't exist, creating it now!"
       mkdir $DBDIR
   fi
 
-  cd DBDIR
+  cd $DBDIR
   docker exec postgres-db pg_dump $db -U timodb -W > $(date +%Y%m%d_%H%M%S)-$db.bak
   echo "Done backup up $db"
 done

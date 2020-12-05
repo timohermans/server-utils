@@ -1,0 +1,30 @@
+version: "3.8"
+services: 
+    jenkins:
+        container_name: jenkins
+        restart: always
+        volumes:
+            - ${HOST_DOCKER}:/var/run/docker.sock
+            - ${HOST_JENKINS_DATA}:/var/jenkins_home
+        ports:
+            - "${HOST_WWW}:8080"
+            - "${HOST_OTHER}:50000"        
+        build:
+            context: ./master 
+            args:
+                HOST_UID: ${HOST_UID}
+                HOST_GID: ${HOST_GID}
+
+    # jenkins-slave:
+    #     container_name: jenkins-slave
+    #     build:
+    #       context: ./slave
+    #     restart: always
+    #     environment:
+    #         - 'JENKINS_URL=http://jenkins:8080'
+    #     image: localhost:5000/jenkins-slave
+    #     volumes:
+    #         - /var/run/docker.sock:/var/run/docker.sock  # Expose the docker daemon in the container
+    #         - /home/jenkins:/home/jenkins # Avoid mysql volume mount issue
+    #     depends_on:
+    #         - jenkins

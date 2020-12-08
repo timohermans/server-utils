@@ -14,8 +14,8 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-c
     chmod +x /usr/local/bin/docker-compose && \
     ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
     
-RUN usermod -u $HOST_UID $HOST_USER
+RUN usermod -u $HOST_UID jenkins
 RUN groupmod -g $HOST_GID docker
-RUN usermod -aG docker $HOST_USER
+RUN usermod -aG docker jenkins
 
-USER $HOST_USER
+USER jenkins

@@ -12,6 +12,7 @@ services:
         build:
             context: ./master 
             args:
+                HOST_USER: ${HOST_USER}
                 HOST_UID: ${HOST_UID}
                 HOST_GID: ${HOST_GID}
 

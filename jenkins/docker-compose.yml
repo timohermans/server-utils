@@ -17,6 +17,7 @@ services:
         
     jenkins:
         container_name: jenkins
+        privileged: true
         restart: unless-stopped        
         build:
             context:  ./master

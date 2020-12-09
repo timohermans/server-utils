@@ -4,6 +4,7 @@ version: "3.8"
 services: 
     dind:
         privileged: true
+        restart: unless-stopped
         container_name: jenkins-docker
         image: docker:dind
         volumes:
@@ -16,6 +17,7 @@ services:
         
     jenkins:
         container_name: jenkins
+        restart: unless-stopped        
         build:
             context:  ./master
         ports:

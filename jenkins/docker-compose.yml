@@ -9,7 +9,7 @@ services:
         image: docker:dind
         volumes:
             - jenkins-data:/var/jenkins_home 
-            - jenkins-certs:/certs/client
+            - jenkins-docker-certs:/certs/client
         ports:
             - 2376:2376
         environment: 
@@ -36,5 +36,4 @@ networks:
 
 volumes:
     jenkins-data:
-    jenkins-certs:
     jenkins-docker-certs:

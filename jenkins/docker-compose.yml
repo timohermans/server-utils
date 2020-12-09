@@ -29,25 +29,6 @@ services:
             - jenkins-data:/var/jenkins_home
             - jenkins-docker-certs:/certs/client:ro
 
-
-
-    # jenkins:
-    #     container_name: jenkins
-    #     restart: always
-    #     links:
-    #         - "dind:docker"
-    #     volumes:
-    #         - ${HOST_DOCKER}:/var/run/docker.sock
-    #         - jenkins:/var/jenkins_home
-    #     ports:
-    #         - "${HOST_WWW}:8080"
-    #         - "${HOST_OTHER}:50000"        
-    #     build:
-    #         context: ./master 
-    #         args:
-    #             HOST_UID: ${HOST_UID}
-    #             HOST_GID: ${HOST_GID}
-
 networks:
     jenkins:
 

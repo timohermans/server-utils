@@ -35,3 +35,4 @@ networks:
 volumes:
     jenkins-data:
     jenkins-certs:
+    jenkins-docker-certs:

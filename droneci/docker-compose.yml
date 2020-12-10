@@ -12,15 +12,19 @@ services:
         volumes:
             - drone-data:/data
 
-    drone-runner:
+    drone-docker-runner:
         container_name: dronerunner1
         restart: unless-stopped
         image: drone/drone-runner-docker:1
         env_file: .env
-        ports:
-            - "3000:3000"
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
+
+    drone-ssh-runner:
+        container_name: dronerunner2
+        image: drone/drone-runner-ssh
+        restart: unless-stopped
+        env_file: .env
 
 volumes:
     drone-data:    

@@ -6,6 +6,7 @@ services:
         ipv4_address: 172.44.0.5
     build:
       context: ./web-proxy
+    restart: unless-stopped
     depends_on: 
       - db-admin
       - keycloak
@@ -14,6 +15,7 @@ services:
 
   student-progress:
     container_name: studentprogress
+    restart: unless-stopped
     depends_on:
       - keycloak
     build:
@@ -31,6 +33,7 @@ services:
       dev:
         ipv4_address: 172.44.0.2
     image: postgres:latest
+    restart: unless-stopped
     container_name: postgres-db
     ports: 
       - "5432:5432"
@@ -44,6 +47,7 @@ services:
   
   db-admin:
     container_name: pgadmin
+    restart: unless-stopped
     networks: 
       dev:
         ipv4_address: 172.44.0.3
@@ -61,6 +65,7 @@ services:
 
   keycloak:
     container_name: keycloak
+    restart: unless-stopped
     image: jboss/keycloak
     depends_on: 
       - db

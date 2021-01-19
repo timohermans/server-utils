@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DIR=/backups
+DIR=~/backups
 DATABASES=(student-progress keycloak)
 
 if [ ! -d "$DIR" ];
@@ -26,9 +26,9 @@ do
 done
 
 echo "Going to put files to cloud"
-rclone copy /backups drive:Backups/home-server-1/postgres
+rclone copy $DIR drive:Backups/home-server-1/postgres
 
-if [ $RESULT = 0 ];
+if [[ $? -eq 0 ]];
   then  
     echo "Done backing up to cloud"
     rm -rf $DIR

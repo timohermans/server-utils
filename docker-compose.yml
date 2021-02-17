@@ -6,12 +6,25 @@ services:
         ipv4_address: 172.44.0.5
     build:
       context: ./web-proxy
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     restart: unless-stopped
     depends_on: 
       - db-admin
       - keycloak
     ports:
       - "80:80"
+      - "443:443"
+    volumes:
+      - ./web-proxy/data/certbot/conf:/etc/letsencrypt
+      - ./web-proxy/data/certbot/www:/var/www/certbot
+
+  certbot:
+    image: certbot/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+    volumes:
+      - ./web-proxy/data/certbot/conf:/etc/letsencrypt
+      - ./web-proxy/data/certbot/www:/var/www/certbot
+
 
   student-progress:
     container_name: studentprogress
@@ -84,7 +97,6 @@ services:
       - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD} 
       - PROXY_ADDRESS_FORWARDING=true
-      - JDBC_PARAMS="useSSL=false"
 
 volumes:
   postgres:
